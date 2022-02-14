@@ -1,0 +1,4 @@
+# compiler output
+out/*
+*/target/*
+*.class
