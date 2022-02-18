@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="UniversalServerManager" target="17" />
-      <module name="USMInterface" target="17" />
+      <module name="UniversalServerManager" target="8" />
+      <module name="USMInterface" target="8" />
       <module name="USNInterface" target="1.5" />
     </bytecodeTargetLevel>
   </component>
