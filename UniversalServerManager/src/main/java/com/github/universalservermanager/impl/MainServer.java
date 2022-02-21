@@ -1,4 +1,8 @@
 package com.github.universalservermanager.impl;
 
-public class MainServer implements com.github.universalservermanager.api.MainServer {
+import com.github.universalservermanager.api.configurations.MainServerConfiguration;
+
+public class MainServer {
+    MainServerConfiguration configuration;
+
 }

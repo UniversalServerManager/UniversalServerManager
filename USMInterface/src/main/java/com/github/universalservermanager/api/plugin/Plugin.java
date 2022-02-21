@@ -10,8 +10,6 @@ public interface Plugin {
     void onLoad();
     JSON getConfig() throws Exception;
     PluginDescription getDescription();
-    boolean signed();
-    boolean installKeyChecked();
     File getDataFolder();
     File getPluginFile();
 }

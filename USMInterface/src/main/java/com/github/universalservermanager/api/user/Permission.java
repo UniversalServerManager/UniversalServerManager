@@ -25,6 +25,10 @@ public class Permission {
         this.permission = permission;
     }
 
+    public void setPermission(Permission permission) {
+        this.permission = permission.permission;
+    }
+
     public void setFlag(int flag, boolean value) {
         if (value) permission |= flag;
         else permission &= (~flag);

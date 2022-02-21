@@ -4,7 +4,7 @@ Welcome to UniversalServerManager Documents.
 
 ## Quick Start
 
-To start, please download the latest `UniversalServerManager.jsr` in **Releases** page. After that, if you want to manage more than one servers, goto **Multi-Servers**, otherwise, see **Simgle Server**.
+To start, please download the latest `UniversalServerManager.jsr` in **Releases** page. After that, if you want to manage more than one server, goto **Multi-Servers**, otherwise, see **Single Server**.
 
 #### Single Server
 

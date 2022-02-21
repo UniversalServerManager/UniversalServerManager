@@ -35,10 +35,7 @@ public class ExamplePlugin implements Plugin {
             return config;
         File file = new File(getDataFolder(), "config.json");
         try {
-            byte[] content = new byte[(int) file.length()];
-            FileInputStream stream = new FileInputStream(file);
-            stream.read(content);
-            stream.close();
+            byte[] content = new FileInputStream(file).readAllBytes();
             config = (JSON) JSON.parse(content);
         } catch (FileNotFoundException e) {
             InputStream stream = this.getClass().getResourceAsStream("config.json");
@@ -55,16 +52,6 @@ public class ExamplePlugin implements Plugin {
     @Override
     public PluginDescription getDescription() {
         return description;
-    }
-
-    @Override
-    public boolean signed() {
-        return false;
-    }
-
-    @Override
-    public boolean installKeyChecked() {
-        return false;
     }
 
     @Override

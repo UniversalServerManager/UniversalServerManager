@@ -21,9 +21,20 @@ import java.util.Map;
 public class PluginLoader {
     protected Map<String, Plugin> pluginMap = new HashMap<>();
     protected Map<Class<? extends Event>, SingleEventHandler> eventHandlerMap = new HashMap<>();
+    protected File pluginsFolder;
+
+    public void reload() {
+        disablePlugins();
+        loadPlugins(pluginsFolder);
+        enablePlugins();
+    }
+
+    public void disablePlugins() {
+        pluginMap.forEach((name, plugin) -> plugin.onDisable());
+    }
 
     public void loadPlugin(File plugin) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{new URL("file:" + plugin.getPath())});
+        URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{new URL("file:" + plugin.getAbsolutePath())});
 
         InputStream jsonFile = urlClassLoader.getResourceAsStream("plugin.json");
         if (jsonFile == null) {
@@ -34,19 +45,19 @@ public class PluginLoader {
         if (pluginMap.containsKey(pluginDescription.getName()))
             return;
         Plugin pluginObject = (Plugin) clazz.getDeclaredConstructor(File.class, PluginDescription.class).newInstance(plugin, pluginDescription);
-        pluginObject.onLoad();
         pluginMap.put(pluginDescription.getName(), pluginObject);
+        pluginObject.onLoad();
     }
 
-    public void loadPlugins(File directory) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void loadPlugins(File directory) {
+        pluginsFolder = directory;
         File[] jars = directory.listFiles((dir, name) -> name.endsWith(".jar"));
+        if (jars == null) return;
         for (File jar : jars) {
             System.out.printf("Loading plugin '%s' ...%n", jar.getName());
             try {
                 loadPlugin(jar);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -57,15 +68,26 @@ public class PluginLoader {
     }
 
     public void enablePlugins() {
-        pluginMap.forEach((name, plugin) -> {
-            enablePlugin(name);
+        pluginMap.forEach((name, plugin) -> enablePlugin(name));
+    }
+
+    public void callEvents(Event event) {
+        eventHandlerMap.forEach((clazz, handler) -> {
+            if (clazz.isAssignableFrom(event.getClass())) {
+                try {
+                    handler.call(event);
+                } catch (InvocationTargetException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
     public void registerEvents(Plugin plugin, Listener listener) {
+        if (listener == null) return;
         Method[] methods = listener.getClass().getMethods();
         for (Method method : methods) {
-            if (method.getAnnotation(EventHandler.class) == null) {
+            if (method.getAnnotation(EventHandler.class) != null) {
                 if (method.getReturnType() == void.class && method.getParameterCount() == 1) {
                     if (Event.class.isAssignableFrom(method.getParameterTypes()[0])) {
                         SingleEventHandler singleEventHandler = new SingleEventHandler();
