@@ -32,3 +32,35 @@ USM是分布式系统，可以通过一个主系统管理多个处于不同物�
 3. `-stop`
 4. `-setup`
 
+## API接口
+
+### 概述
+
+您可以为UniversalServerManager编写插件，而这个模块将带您快速建立一个USM插件！
+
+> 虽然UniversalServerManager基于AGPL协议开源，但是api是基于MIT协议的，请放心使用，无需任何后顾之忧。
+
+### 环境配置
+
+首先，一个USM插件的编写需要一个API，它提供基本的监听器和操作接口。您可以下载**Releases**中的USMAPI.jar，并将其导入您的项目，即可快速配置完成开发环境。
+
+然后，您可以开始下一步了~
+
+### 插件主类和plugin.json
+
+首先，您需要一个主类，它将作为插件运行的入口点。
+
+所有插件必须实现`Plugin`接口，当然，您可以使用`ExamplePlugin`类，这包含了一些基本的方法。
+
+比如这样：
+```javaa
+package com.example.usm.plugin;
+
+import com.github.universalservermanager.api.plugin.ExamplePlugin
+
+public class MyPlugin extends ExamplePlugin {
+}
+```
+
+然后，您需要编辑`plugin.json`，浙江告诉usm你的插件的主类位置、作者、名称、版本等基本信息以及依赖、命令等附加信息。
+
