@@ -1,5 +1,7 @@
 **English** | [简体中文](index.md)
 
+[Join in our QQ group to participate in the discussion!](https://qm.qq.com/cgi-bin/qm/qr?k=EOGFe43mN5UYC0RWwi0Gen_eSceN-d64&jump_from=webapi)
+
 Welcome to UniversalServerManager Documents.
 
 ## Quick Start
@@ -28,7 +30,47 @@ Notice that the command line argument `-setup` will ask you to input some basic 
    java -jar UniversalServerManager.jar -mode main -setup -generate-script -stop
    ```
 
-   
+
+## Architecture
+
+USM is a distributed system , and so multiple servers in different physical locations can be managed in one main system 。Thus , if
+
+## Command Prompt Arguments
+
+1. `-mode`
+2. `-generate-script`
+3. `-stop`
+4. `-setup`
 
 ## Plugin API
 
+### General Introduction
+
+You can write plugins for UniversalServerManager , and this module will help you build a USM plugin quickly.
+
+> Although UniversalServerManager is an open-sourced project based on AGPL license , API is based on MIT license , so you can use it without worrying about any copyright problems.
+
+### Environment Settings
+
+First , you need an API to write a USM plugin , which provides basic <u>listener and action interfaces</u> . You can download USMAPI.jar in **Releases** , and then import it into your project to finish setting <u>develope environments</u>.
+
+Then you can go to the next step :P
+
+### Plugin Main Class and plugin.json
+
+First , you'll need a main class which will be the entry point of the plugin .
+
+All the plugins must implement the interface `Plugin` , and of course you can use the  `ExamplePlugin` class ,which includes some basic methods.
+
+Here's an example:
+
+```javaa
+package com.example.usm.plugin;
+
+import com.github.universalservermanager.api.plugin.ExamplePlugin
+
+public class MyPlugin extends ExamplePlugin {
+}
+```
+
+Then you need to edit `plugin.json` , it will tell USM basic informations of your plugin namely location of the main class , the developer name , the plugin name and the version , as well as some additional informations namely dependencies and commands .
