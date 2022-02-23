@@ -14,12 +14,17 @@
 1. 主服务器
 
    与上面基本相同，但是命令如下：
-
-   `java -jar UniversalServerManager.jar -mode main -setup -generate-script -stop`
-
    
+   ```bash
+   java -jar UniversalServerManager.jar -mode main -setup -generate-script -stop
+   ```
 
 2. 分服务器
+
+   ```bash
+   java -jar UniversalServerManager.jar -mode main -setup -generate-script -stop
+   ```
+
 
 ## 架构
 
@@ -38,7 +43,7 @@ USM是分布式系统，可以通过一个主系统管理多个处于不同物�
 
 您可以为UniversalServerManager编写插件，而这个模块将带您快速建立一个USM插件！
 
-> 虽然UniversalServerManager基于AGPL协议开源，但是api是基于MIT协议的，请放心使用，无需任何后顾之忧。
+> 虽然UniversalServerManager基于AGPL协议开源，但是API是基于MIT协议的，请放心使用，无需任何后顾之忧。
 
 ### 环境配置
 
@@ -62,5 +67,5 @@ public class MyPlugin extends ExamplePlugin {
 }
 ```
 
-然后，您需要编辑`plugin.json`，浙江告诉usm你的插件的主类位置、作者、名称、版本等基本信息以及依赖、命令等附加信息。
+然后，您需要编辑`plugin.json`，这将告诉USM你的插件的主类位置、作者、名称、版本等基本信息以及依赖、命令等附加信息。
 
