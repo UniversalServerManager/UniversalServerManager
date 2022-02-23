@@ -9,5 +9,7 @@ public abstract class AbstractUser {
     @Getter
     @Setter
     protected boolean admin;
-
+    @Getter
+    @Setter
+    protected String name;
 }

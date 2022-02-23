@@ -3,6 +3,7 @@ package com.github.universalservermanager.api.user;
 public class Permission {
     int permission;
     public final static int Admin = 65535;
+    public final static int None = 0;
     public final static int Read = 1;
     public final static int Execute = 2;
     public final static int Write = 4;
