@@ -33,7 +33,7 @@ Notice that the command line argument `-setup` will ask you to input some basic 
 
 ## Architecture
 
-USM is a distributed system , and so multiple servers in different physical locations can be managed in one main system 。Thus , if
+USM is a distributed system , and so multiple servers in different physical locations can be managed in one main system . Thus , if
 
 ## Command Prompt Arguments
 
