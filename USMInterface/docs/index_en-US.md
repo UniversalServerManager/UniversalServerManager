@@ -35,7 +35,7 @@ Notice that the command line argument `-setup` will ask you to input some basic 
 
 USM is a distributed system , and so multiple servers in different physical locations can be managed in one main system . Thus , if
 
-## Command Prompt Arguments
+## Command Line Arguments
 
 1. `-mode`
 2. `-generate-script`
@@ -52,7 +52,7 @@ You can write plugins for UniversalServerManager , and this module will help you
 
 ### Environment Settings
 
-First , you need an API to write a USM plugin , which provides basic <u>listener and action interfaces</u> . You can download USMAPI.jar in **Releases** , and then import it into your project to finish setting <u>develope environments</u>.
+First , you need an API to write a USM plugin , which provides basic <u>listener and action interfaces</u> . You can download USMAPI.jar in **Releases** , and then import it into your project to finish setting <u>develop environments</u>.
 
 Then you can go to the next step :P
 
@@ -64,7 +64,7 @@ All the plugins must implement the interface `Plugin` , and of course you can us
 
 Here's an example:
 
-```javaa
+```java
 package com.example.usm.plugin;
 
 import com.github.universalservermanager.api.plugin.ExamplePlugin
@@ -74,3 +74,12 @@ public class MyPlugin extends ExamplePlugin {
 ```
 
 Then you need to edit `plugin.json` , it will tell USM basic informations of your plugin namely location of the main class , the developer name , the plugin name and the version , as well as some additional informations namely dependencies and commands .
+
+```json
+{
+   "mainClass":"com.example.usm.plugin.MyPlugin",
+   "name": "TestPlugin",
+   "version": "1.0.0",
+   "authors": ["USM Team"]
+}
+```
