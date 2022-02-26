@@ -41,26 +41,6 @@ A **Partial Server** is a server manager by the Main Server. It provides file ro
 
 If your server is running at the **Single Server** mode, There will be a partial server and a main server.
 
-```java
-import com.github.universalservermanager.api.configurations.Configuration;
-import com.github.universalservermanager.exceptions.NotImplementedException;
-import lombok.Getter;
-import lombok.Setter;
-
-class Example {
-   public Example() {
-      throw new NotImplementedException();
-   }
-}
-
-class Conf extends Configuration {
-   @Getter
-   @Setter
-   @NonNull
-   String arg;
-}
-```
-
 ## Command Line Arguments
 
 1. `-mode`

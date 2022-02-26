@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <circle cx="7" cy="90" r="5" fill="blue" />
+    <circle cx="93" cy="90" r="5" fill="blue" />
+    <circle cx="19.7" cy="40" r="5" fill="blue" />
+    <polygon points="1.8,90 11.3,93 24.8,40 15,38" fill="blue" />
+    <circle cx="25" cy="20" r="5" fill="blue" />
+    <circle cx="75" cy="20" r="5" fill="blue" />
+    <circle cx="22" cy="90" r="5" fill="blue" />
+    <circle cx="50" cy="50" r="5" fill="blue" />
+    <circle cx="50" cy="76" r="5" fill="blue" />
+    <polygon points="20.8,23 28.5,16.2 53.1,46 46.9,54" fill="blue" />
+    <circle cx="78" cy="90" r="5" fill="blue" />
+    <circle cx="88.2" cy="72" r="5" fill="blue" />
+    <polygon points="98.2,90 88.7,93 83.5,74 92.54,69" fill="blue" />
+    <polygon points="79.2,23 71.5,16.2 46.9,46 53.1,54" fill="blue" />
+    <circle cx="84" cy="56" r="5" fill="blue" />
+    <polygon points="79,57 88.6,53.8 79.8,18.3 69.6,21" fill="blue" />
+    <circle cx="31.3" cy="53.6" r="5" fill="blue" />
+    <circle cx="68.7" cy="53.6" r="5" fill="blue" />
+    <polygon points="27.1,56.5 35.5,50.8 54.2,73 46.3,79.50" fill="blue" />
+    <polygon points="22,70 16.9,89 26.4,92.7 31.5,74" fill="blue" />
+    <circle cx="26.8" cy="71.9" r="5" fill="blue" />
+    <polygon points="65,50 46.3,73 53.8,79.6 72.8,56.6" fill="blue" />
+    <polygon points="64.8,57.2 73.8,53 82.9,89 73.6,92.7" fill="blue" />
+    </svg>
