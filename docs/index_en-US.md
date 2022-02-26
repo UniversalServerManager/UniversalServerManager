@@ -35,31 +35,11 @@ Notice that the command line argument `-setup` will ask you to input some basic 
 
 USM is a distributed system, and multiple servers in different physical locations can be managed in one main system. So, it's necessary to give some definitions.
 
-A **Main Server** is the server that can control all servers. Admins send request to Main Server and then log in. The basic operations like stopping the server are
+A **Main Server** is the server that can control all servers. Admins send request to Main Server and then log in. The basic operations like stopping the server are authenticated here.
 
 A **Partial Server** is a server manager by the Main Server. It provides file router, console forwarder, and some operations that cost a lot of network resources.
 
 If your server is running at the **Single Server** mode, There will be a partial server and a main server.
-
-```java
-import com.github.universalservermanager.api.configurations.Configuration;
-import com.github.universalservermanager.exceptions.NotImplementedException;
-import lombok.Getter;
-import lombok.Setter;
-
-class Example {
-   public Example() {
-      throw new NotImplementedException();
-   }
-}
-
-class Conf extends Configuration {
-   @Getter
-   @Setter
-   @NonNull
-   String arg;
-}
-```
 
 ## Command Line Arguments
 
@@ -130,8 +110,8 @@ Here's the other elements' example.
 ```
 | Field | Description | Note |
 |-------|-------------|------|
-| name  |command's name|if this field is the same as another, you must use namespace to select which command to use. e.g. MyPlugin::test|
-| usage |error message|appears when onCommand() of the command executor returns false.|
+| name  | command's name|if this field is the same as another, you must use namespace to select which command to use. e.g. MyPlugin::test |
+| usage | error message|appears when onCommand() of the command executor returns false. |
 
 ### onEnable(), onDisable() and onLoad()
 
