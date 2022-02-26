@@ -128,10 +128,10 @@ Here's the other elements' example.
     ]
 }
 ```
-|Field|Description|Note|
-|-----|-----------|----|
-|name |command's name|if this field is the same as another, you must use namespace to select which command to use. e.g. MyPlugin::test|
-|usage|error message|appears when onCommand() of the command executor returns false.|
+| Field | Description | Note |
+|-------|-------------|------|
+| name  |command's name|if this field is the same as another, you must use namespace to select which command to use. e.g. MyPlugin::test|
+| usage |error message|appears when onCommand() of the command executor returns false.|
 
 ### onEnable(), onDisable() and onLoad()
 
