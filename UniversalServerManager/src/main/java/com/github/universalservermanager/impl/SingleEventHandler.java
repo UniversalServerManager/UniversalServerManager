@@ -17,7 +17,7 @@ public class SingleEventHandler {
     private Listener listener;
     @Getter
     @Setter
-    private Class<?> listenedEvent;
+    private Class<? extends Event> listenedEvent;
     @Getter
     @Setter
     private Method listeningMethod;

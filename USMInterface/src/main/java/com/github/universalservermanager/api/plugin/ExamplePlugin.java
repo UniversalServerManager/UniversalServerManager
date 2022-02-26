@@ -1,17 +1,20 @@
 package com.github.universalservermanager.api.plugin;
 
 import com.alibaba.fastjson.JSON;
+import com.github.universalservermanager.api.PluginManager;
 
 import java.io.*;
 
 public class ExamplePlugin implements Plugin {
     final File pluginFile;
     final PluginDescription description;
+    final PluginManager pluginManager;
     JSON config;
 
-    public ExamplePlugin(File plugin, PluginDescription description) {
+    public ExamplePlugin(File plugin, PluginManager pluginManager, PluginDescription description) {
         pluginFile = plugin;
         this.description = description;
+        this.pluginManager = pluginManager;
     }
 
     @Override
@@ -62,5 +65,10 @@ public class ExamplePlugin implements Plugin {
     @Override
     public File getPluginFile() {
         return pluginFile;
+    }
+
+    @Override
+    public PluginManager getPluginManager() {
+        return pluginManager;
     }
 }

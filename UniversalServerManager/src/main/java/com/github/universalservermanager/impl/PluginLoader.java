@@ -1,6 +1,7 @@
 package com.github.universalservermanager.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.universalservermanager.api.PluginManager;
 import com.github.universalservermanager.api.events.Event;
 import com.github.universalservermanager.api.events.EventHandler;
 import com.github.universalservermanager.api.events.Listener;
@@ -15,12 +16,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class PluginLoader {
+public class PluginLoader implements PluginManager {
     protected Map<String, Plugin> pluginMap = new HashMap<>();
-    protected Map<Class<? extends Event>, SingleEventHandler> eventHandlerMap = new HashMap<>();
+
+    protected List<SingleEventHandler> eventHandlers = new ArrayList<>();
     protected File pluginsFolder;
 
     public void reload() {
@@ -30,7 +34,24 @@ public class PluginLoader {
     }
 
     public void disablePlugins() {
-        pluginMap.forEach((name, plugin) -> plugin.onDisable());
+        for (String name : pluginMap.keySet()) {
+            disablePlugin(name);
+        }
+    }
+
+    @Override
+    public void broadcastMessage(String channel, String message) {
+        // TODO: 2022/2/24
+    }
+
+    @Override
+    public boolean containsPlugin(String name) {
+        return pluginMap.containsKey(name);
+    }
+
+    @Override
+    public Plugin getPlugin(String name) {
+        return pluginMap.get(name);
     }
 
     public void loadPlugin(File plugin) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -44,7 +65,7 @@ public class PluginLoader {
         Class<?> clazz = urlClassLoader.loadClass(pluginDescription.getMainClass());
         if (pluginMap.containsKey(pluginDescription.getName()))
             return;
-        Plugin pluginObject = (Plugin) clazz.getDeclaredConstructor(File.class, PluginDescription.class).newInstance(plugin, pluginDescription);
+        Plugin pluginObject = (Plugin) clazz.getDeclaredConstructor(File.class, PluginManager.class, PluginDescription.class).newInstance(plugin, this, pluginDescription);
         pluginMap.put(pluginDescription.getName(), pluginObject);
         pluginObject.onLoad();
     }
@@ -64,16 +85,31 @@ public class PluginLoader {
     }
 
     public void enablePlugin(String name) {
+        System.out.printf("Enabling plugin '%s'...%n", name);
         pluginMap.get(name).onEnable();
+    }
+
+    @Override
+    public boolean isEnabled(String name) {
+        return pluginMap.containsKey(name);
+    }
+
+    @Override
+    public void disablePlugin(String name) {
+        System.out.printf("Disabling plugin '%s'...%n", name);
+        pluginMap.get(name).onDisable();
+        eventHandlers.removeIf(singleEventHandler ->
+                singleEventHandler.getOwnerPlugin().getDescription().getName().equals(name));
     }
 
     public void enablePlugins() {
         pluginMap.forEach((name, plugin) -> enablePlugin(name));
     }
 
+    @Override
     public void callEvents(Event event) {
-        eventHandlerMap.forEach((clazz, handler) -> {
-            if (clazz.isAssignableFrom(event.getClass())) {
+        eventHandlers.forEach(handler -> {
+            if (handler.getListenedEvent().isAssignableFrom(event.getClass())) {
                 try {
                     handler.call(event);
                 } catch (InvocationTargetException | IllegalAccessException e) {
@@ -83,6 +119,7 @@ public class PluginLoader {
         });
     }
 
+    @Override
     public void registerEvents(Plugin plugin, Listener listener) {
         if (listener == null) return;
         Method[] methods = listener.getClass().getMethods();
@@ -91,11 +128,11 @@ public class PluginLoader {
                 if (method.getReturnType() == void.class && method.getParameterCount() == 1) {
                     if (Event.class.isAssignableFrom(method.getParameterTypes()[0])) {
                         SingleEventHandler singleEventHandler = new SingleEventHandler();
-                        singleEventHandler.setListenedEvent(method.getParameterTypes()[0]);
+                        singleEventHandler.setListenedEvent((Class<? extends Event>) method.getParameterTypes()[0]);
                         singleEventHandler.setListener(listener);
                         singleEventHandler.setListeningMethod(method);
                         singleEventHandler.setOwnerPlugin(plugin);
-                        eventHandlerMap.put((Class<? extends Event>) method.getParameterTypes()[0], singleEventHandler);
+                        eventHandlers.add(singleEventHandler);
                     }
                 }
             }
